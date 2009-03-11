@@ -30,7 +30,7 @@ module HeaderAuthorization
           self.send(:set_current_user)
         else
           if config[HEADER_AUTHORIZE_USER_INIT] && request.env[auth_header] != auth_anonymous_val
-            self.current_user = User.create!(:login => request.env[auth_header], :name => request.env[auth_header], :password => request.env[auth_header], :password_confirmation => request.env[auth_header])
+            self.current_user = User.create!(:login => request.env[auth_header], :name => request.env[auth_header], :password => 'generated-for-' + request.env[auth_header], :password_confirmation => 'generated-for-' + request.env[auth_header])
             self.send(:set_current_user)
             flash[:notice] = 'Welcome. A new account has been created for you.'
           end
